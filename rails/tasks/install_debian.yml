@@ -1,0 +1,66 @@
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+- name: Run the equivalent of "apt-get update" as a separate step
+  apt:
+    update_cache: yes
+
+- name: Install list of packages
+  apt: name={{item}} state=installed
+  with_items:
+       - git-core
+       - curl
+       - zlib1g-dev
+       - build-essential
+       - libssl-dev
+       - libreadline-dev
+       - libyaml-dev
+       - libsqlite3-dev
+       - sqlite3
+       - libxml2-dev
+       - libxslt1-dev
+       - libcurl4-openssl-dev
+       - python-software-properties
+       - libffi-dev
+       - nodejs
+       - yarn
+
+- name: Clone a private repository into /opt.
+  git:
+    repo: https://github.com/rbenv/rbenv.git
+    version: master
+    dest: ~/.rbenv
+    accept_hostkey: yes
+  # ssh-agent doesn't allow key to pass through remote sudo commands.
+  become: no
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: exec $SHELL
+
+- name: Clone a private repository into /opt.
+  git:
+    repo: https://github.com/rbenv/ruby-build.git
+    version: master
+    dest: ~/.rbenv/plugins/ruby-build
+    accept_hostkey: yes
+  # ssh-agent doesn't allow key to pass through remote sudo commands.
+  become: no
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: exec $SHELL
+
