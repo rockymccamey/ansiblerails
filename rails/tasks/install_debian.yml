@@ -47,7 +47,7 @@
   shell: echo 'eval "$(rbenv init -)"' >> ~/.bashrc
 
 - name: Execute the command in remote shell; stdout goes to the specified file on the remote.
-  shell: exec $SHELL
+  shell: source ~/.bashrc
 
 - name: Clone a private repository into /opt.
   git:
@@ -62,5 +62,5 @@
   shell: echo 'export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"' >> ~/.bashrc
 
 - name: Execute the command in remote shell; stdout goes to the specified file on the remote.
-  shell: exec $SHELL
+  shell: source ~/.bashrc
 
