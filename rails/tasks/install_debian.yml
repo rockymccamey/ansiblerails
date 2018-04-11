@@ -48,6 +48,8 @@
 
 - name: Execute the command in remote shell; stdout goes to the specified file on the remote.
   shell: source ~/.bashrc
+  args:
+    executable: /bin/bash
 
 - name: Clone a private repository into /opt.
   git:
@@ -63,4 +65,6 @@
 
 - name: Execute the command in remote shell; stdout goes to the specified file on the remote.
   shell: source ~/.bashrc
+  args:
+    executable: /bin/bash
 
