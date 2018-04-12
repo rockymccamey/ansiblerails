@@ -68,3 +68,8 @@
   args:
     executable: /bin/bash
 
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: rbenv install 2.5.0
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: rbenv global 2.5.0
