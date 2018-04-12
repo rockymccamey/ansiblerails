@@ -73,3 +73,17 @@
 
 - name: Execute the command in remote shell; stdout goes to the specified file on the remote.
   shell: . /root/.bashrc && rbenv global 2.5.0
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: gem install bundler
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+
+- name: Install the package "foo"
+  apt:
+    name: nodejs
+    state: present
+
+- name: Execute the command in remote shell; stdout goes to the specified file on the remote.
+  shell: . /root/.bashrc && rbenv rehash
